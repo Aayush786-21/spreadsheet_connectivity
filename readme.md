@@ -26,34 +26,34 @@ Google Sheets Task Processor is a Python-based application that interacts with a
 git clone https://github.com/Aayush786-21/sudip_dai.git
 cd google-sheets-task-processor
 
-### **2. Create and activate a virtual environment:**
+ **2. Create and activate a virtual environment:**
 ```bash
 python -m venv venv
 source venv/bin/activate  # On Windows, use `venv\Scripts\activate`
 
-### **3. Install the required packages:**
+**3. Install the required packages:**
 ```bash
 pip install gspread oauth2client
 
-### **4. Set up Google API credentials:**
+**4. Set up Google API credentials:**
 Go to the Google Cloud Console.
 Create a new project and enable the Google Sheets API and Google Drive API.
 Create a service account and download the credentials JSON file.
 Share your Google Spreadsheet with the service account email found in the JSON file.
 
-### **5. Update the script with your credentials:**
+**5. Update the script with your credentials:**
 Replace 'your-key-file.json' in the code with the path to your service account JSON file.
 Replace 'Your Spreadsheet Name' with the name of your Google Spreadsheet.
 
-### **Usage**
+**Usage**
 
 Run the script:
 python reading.py
 
-### **Use the application:**
+**Use the application:**
 The script will process each task based on the conditions and user inputs and update the results in the spreadsheet.
 
-## **Project Structure**
+**Project Structure**
 reading.py: Main application file with functions to authenticate, process tasks, and generate outputs.
 requirements.txt: List of dependencies required to run the project.
 README.md: Project documentation.
