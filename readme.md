@@ -23,7 +23,7 @@ Google Sheets Task Processor is a Python-based application that interacts with a
 
 ### 1. Clone the repository:
 ```bash
-git clone https://github.com/your-username/google-sheets-task-processor.git
+git clone https://github.com/Aayush786-21/sudip_dai.git
 cd google-sheets-task-processor
 
 2. Create and activate a virtual environment:
