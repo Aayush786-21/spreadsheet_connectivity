@@ -1,50 +1,65 @@
-import gspread
-from oauth2client.service_account import ServiceAccountCredentials
+import os.path
 
-def authenticate_google_sheets(json_keyfile, spreadsheet_name):
-    # Set up the Google Sheets API client
-    scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
-    creds = ServiceAccountCredentials.from_json_keyfile_name(json_keyfile, scope)
-    client = gspread.authorize(creds)
-    
-    # Open the spreadsheet
-    sheet = client.open(spreadsheet_name).sheet1
-    return sheet
+from google.auth.transport.requests import Request
+from google.oauth2.credentials import Credentials
+from google_auth_oauthlib.flow import InstalledAppFlow
+from googleapiclient.discovery import build
+from googleapiclient.errors import HttpError
 
-def process_tasks(sheet):
-    # Get all the tasks, conditions, and user inputs
-    tasks = sheet.col_values(1)  # Column A
-    conditions = sheet.col_values(2)  # Column B
-    user_inputs = sheet.col_values(3)  # Column C
+# If modifying these scopes, delete the file token.json.
+SCOPES = ["https://www.googleapis.com/auth/spreadsheets.readonly"]
 
-    # Process each task and write the output to column D
-    for i in range(1, len(tasks)):  # Starting from 1 to skip the header
-        task = tasks[i]
-        condition = conditions[i]
-        user_input = user_inputs[i]
-        
-        output = generate_output(condition, user_input)
-        
-        # Write the output to column D
-        sheet.update_cell(i+1, 4, output)  # D column is the 4th column
+# The ID and range of a sample spreadsheet.
+SAMPLE_SPREADSHEET_ID = "1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms"
+SAMPLE_RANGE_NAME = "Class Data!A2:E"
 
-    print("Processing complete!")
-
-def generate_output(condition, user_input):
-    if condition == "yes" and user_input == "yes":
-        return "okay on it"
-    elif condition == "yes" and user_input == "no":
-        return "data is ignored"
-    else:
-        return "data is ignored"
 
 def main():
-    # Replace with your actual JSON key file and spreadsheet name
-    json_keyfile = 'your-key-file.json'
-    spreadsheet_name = 'Your Spreadsheet Name'
-    
-    sheet = authenticate_google_sheets(json_keyfile, spreadsheet_name)
-    process_tasks(sheet)
+  """Shows basic usage of the Sheets API.
+  Prints values from a sample spreadsheet.
+  """
+  creds = None
+  # The file token.json stores the user's access and refresh tokens, and is
+  # created automatically when the authorization flow completes for the first
+  # time.
+  if os.path.exists("token.json"):
+    creds = Credentials.from_authorized_user_file("token.json", SCOPES)
+  # If there are no (valid) credentials available, let the user log in.
+  if not creds or not creds.valid:
+    if creds and creds.expired and creds.refresh_token:
+      creds.refresh(Request())
+    else:
+      flow = InstalledAppFlow.from_client_secrets_file(
+          "credentials.json", SCOPES
+      )
+      creds = flow.run_local_server(port=0)
+    # Save the credentials for the next run
+    with open("token.json", "w") as token:
+      token.write(creds.to_json())
+
+  try:
+    service = build("sheets", "v4", credentials=creds)
+
+    # Call the Sheets API
+    sheet = service.spreadsheets()
+    result = (
+        sheet.values()
+        .get(spreadsheetId=SAMPLE_SPREADSHEET_ID, range=SAMPLE_RANGE_NAME)
+        .execute()
+    )
+    values = result.get("values", [])
+
+    if not values:
+      print("No data found.")
+      return
+
+    print("Name, Major:")
+    for row in values:
+      # Print columns A and E, which correspond to indices 0 and 4.
+      print(f"{row[0]}, {row[4]}")
+  except HttpError as err:
+    print(err)
+
 
 if __name__ == "__main__":
-    main()
+  main()
