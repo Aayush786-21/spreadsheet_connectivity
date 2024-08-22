@@ -57,3 +57,8 @@ The script will process each task based on the conditions and user inputs and up
 reading.py: Main application file with functions to authenticate, process tasks, and generate outputs.
 requirements.txt: List of dependencies required to run the project.
 README.md: Project documentation.
+
+
+future plans 
+no. 1 google developer platform can provide credentials for us to connect with google spreadsheet.
+no. 2 so basically give no.1 a good test.. as a replacement of google cloud platform to link my google spreadsheet.
