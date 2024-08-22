@@ -1,69 +1,57 @@
+Python quickstart 
 
-# Google Sheets Task Processor
+bookmark_border
+Quickstarts explain how to set up and run an app that calls a Google Workspace API.
 
-Google Sheets Task Processor is a Python-based application that interacts with a Google Spreadsheet to automate the processing of tasks. The script reads tasks, conditions, and user inputs, processes them according to predefined rules, and writes the results back into the spreadsheet.
+Google Workspace quickstarts use the API client libraries to handle some details of the authentication and authorization flow. We recommend that you use the client libraries for your own apps. This quickstart uses a simplified authentication approach that is appropriate for a testing environment. For a production environment, we recommend learning about authentication and authorization before choosing the access credentials that are appropriate for your app.
 
-## Features
+Create a Python command-line application that makes requests to the Google Sheets API.
 
-- Connect to Google Sheets using the Google Sheets API
-- Read tasks, conditions, and user inputs from a Google Spreadsheet
-- Process each task based on user-defined conditions
-- Write the output back to the Google Spreadsheet
-- Modular design for easy expansion and maintenance
+Objectives
+Set up your environment.
+Install the client library.
+Set up the sample.
+Run the sample.
+Prerequisites
+To run this quickstart, you need the following prerequisites:
 
+Python 3.10.7 or greater
+The pip package management tool
+A Google Cloud project.
+A Google Account.
+Set up your environment
+To complete this quickstart, set up your environment.
 
-future plans 
-- no. 1 google developer platform can provide credentials for us to connect with google spreadsheet.
-- no. 2 so basically give no.1 a good test.. as a replacement of google cloud platform to link my google spreadsheet.
+Enable the API
+Before using Google APIs, you need to turn them on in a Google Cloud project. You can turn on one or more APIs in a single Google Cloud project.
+In the Google Cloud console, enable the Google Sheets API.
 
-## Prerequisites
+Enable the API
 
-- Python 3.x
-- Google Cloud Project with Sheets API and Drive API enabled
-- `gspread` library
-- `oauth2client` library
-- Service account credentials JSON file
+Configure the OAuth consent screen
+If you're using a new Google Cloud project to complete this quickstart, configure the OAuth consent screen and add yourself as a test user. If you've already completed this step for your Cloud project, skip to the next section.
 
-## Installation
+In the Google Cloud console, go to Menu menu > APIs & Services > OAuth consent screen.
+Go to OAuth consent screen
 
-### 1. Clone the repository:
-```bash
-git clone https://github.com/Aayush786-21/sudip_dai.git
-cd google-sheets-task-processor
+For User type select Internal, then click Create.
+Complete the app registration form, then click Save and Continue.
+For now, you can skip adding scopes and click Save and Continue. In the future, when you create an app for use outside of your Google Workspace organization, you must change the User type to External, and then, add the authorization scopes that your app requires.
 
- **2. Create and activate a virtual environment:**
-```bash
-python -m venv venv
-source venv/bin/activate  # On Windows, use `venv\Scripts\activate`
+Review your app registration summary. To make changes, click Edit. If the app registration looks OK, click Back to Dashboard.
+Authorize credentials for a desktop application
+To authenticate end users and access user data in your app, you need to create one or more OAuth 2.0 Client IDs. A client ID is used to identify a single app to Google's OAuth servers. If your app runs on multiple platforms, you must create a separate client ID for each platform.
+In the Google Cloud console, go to Menu menu > APIs & Services > Credentials.
+Go to Credentials
 
-**3. Install the required packages:**
-```bash
-pip install gspread oauth2client
-
-**4. Set up Google API credentials:**
-Go to the Google Cloud Console.
-Create a new project and enable the Google Sheets API and Google Drive API.
-Create a service account and download the credentials JSON file.
-Share your Google Spreadsheet with the service account email found in the JSON file.
-
-**5. Update the script with your credentials:**
-Replace 'your-key-file.json' in the code with the path to your service account JSON file.
-Replace 'Your Spreadsheet Name' with the name of your Google Spreadsheet.
-
-**Usage**
-
-Run the script:
-python reading.py
-
-**Use the application:**
-The script will process each task based on the conditions and user inputs and update the results in the spreadsheet.
-
-**Project Structure**
-reading.py: Main application file with functions to authenticate, process tasks, and generate outputs.
-requirements.txt: List of dependencies required to run the project.
-README.md: Project documentation.
+Click Create Credentials > OAuth client ID.
+Click Application type > Desktop app.
+In the Name field, type a name for the credential. This name is only shown in the Google Cloud console.
+Click Create. The OAuth client created screen appears, showing your new Client ID and Client secret.
+Click OK. The newly created credential appears under OAuth 2.0 Client IDs.
+Save the downloaded JSON file as credentials.json, and move the file to your working directory.
+Install the Google client library
+Install the Google client library for Python:
 
 
-
-
-
+pip install --upgrade google-api-python-client google-auth-httplib2 google-auth-oauthlib
