@@ -11,6 +11,11 @@ Google Sheets Task Processor is a Python-based application that interacts with a
 - Write the output back to the Google Spreadsheet
 - Modular design for easy expansion and maintenance
 
+
+future plans 
+- no. 1 google developer platform can provide credentials for us to connect with google spreadsheet.
+- no. 2 so basically give no.1 a good test.. as a replacement of google cloud platform to link my google spreadsheet.
+
 ## Prerequisites
 
 - Python 3.x
@@ -59,6 +64,6 @@ requirements.txt: List of dependencies required to run the project.
 README.md: Project documentation.
 
 
-future plans 
-no. 1 google developer platform can provide credentials for us to connect with google spreadsheet.
-no. 2 so basically give no.1 a good test.. as a replacement of google cloud platform to link my google spreadsheet.
+
+
+
